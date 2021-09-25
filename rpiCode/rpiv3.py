@@ -40,21 +40,10 @@ global counterIndex
 counterIndex= 0
 GPIO.setmode(GPIO.BOARD)
 
-GPIO.setup(12,GPIO.OUT)
-r = GPIO.PWM(12,50)
-r.start(0)
-
-GPIO.setup(10,GPIO.OUT)
-g = GPIO.PWM(10,50)
-g.start(0)
-
-GPIO.setup(8,GPIO.OUT)
-b = GPIO.PWM(8,50)
-b.start(0)
-
-r.ChangeDutyCycle(100)
-g.ChangeDutyCycle(0)
-b.ChangeDutyCycle(100)
+#rotary pins
+GPIO.setup(11,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(13,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(15,GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 RAD_TO_DEG = 57.29578
 M_PI = 3.14159265358979323846
