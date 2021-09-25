@@ -33,7 +33,12 @@ from grovepi import *
 import math
 import RPi.GPIO as GPIO
 
-
+#some global variables
+global maxIndex
+maxIndex = 2
+global counterIndex 
+counterIndex= 0
+GPIO.setmode(GPIO.BOARD)
 
 
 RAD_TO_DEG = 57.29578
