@@ -46,14 +46,12 @@ GPIO.setup(13,GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(15,GPIO.IN, pull_up_down = GPIO.PUD_UP)
 
 #rotary stuff
-GPIO.add_event_detect(11, GPIO.RISING, callback = button_callback)
-
 def button_callback(channel):
     print("Button was pushed!")
     global counterIndex
     client.publish("Scene",counterIndex)
 
-
+GPIO.add_event_detect(11, GPIO.RISING, callback = button_callback)
 
 
 
