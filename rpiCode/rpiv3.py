@@ -62,7 +62,7 @@ def rotaryA_callback(channel):
     
     if(a and not b):
         counterIndex = counterIndex-1
-        if(counterIndex<= 0):
+        if(counterIndex< 0):
             counterIndex = maxIndex
         setText(str(counterIndex))
         #setText(counterIndex)
