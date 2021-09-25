@@ -35,7 +35,7 @@ import RPi.GPIO as GPIO
 
 #some global variables
 global maxIndex
-maxIndex = 4
+maxIndex = 2
 global counterIndex 
 counterIndex= 0
 GPIO.setmode(GPIO.BOARD)
@@ -66,9 +66,9 @@ def rotaryA_callback(channel):
         #setText(counterIndex)
         print("COUNTER INDEX")
         print(str(counterIndex))
-        if(counterIndex< 0):
+        if(counterIndex< 1):
             counterIndex = maxIndex
-        elif(counterIndex>maxIndex):
+        elif(counterIndex>(maxIndex-1)):
             counterIndex = 0
 def rotaryB_callback(channel):
     a = GPIO.input(13)
