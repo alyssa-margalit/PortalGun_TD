@@ -252,6 +252,8 @@ if __name__ == '__main__':
 
     time.sleep(1)
     #client.publish("initialize", b'hello')
+    setText("welcome")
+    setRGB(0,255,0)
     while True:
 
         #Read the accelerometer,gyroscope and magnetometer values
