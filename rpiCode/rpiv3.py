@@ -62,10 +62,10 @@ def rotaryA_callback(channel):
         global counterIndex 
         global maxIndex
         counterIndex = counterIndex-1
-        setText(counterIndex)
+        setText(str(counterIndex))
         #setText(counterIndex)
         print("COUNTER INDEX")
-        print(counterIndex)
+        print(str(counterIndex))
         #if(counter< 0):
             #counter = maxIndex
 def rotaryB_callback(channel):
@@ -82,7 +82,7 @@ def rotaryB_callback(channel):
         counterIndex = counterIndex+1
         print("COUNTER INDEX")
         print(counterIndex)
-        setText(counterIndex)
+        setText(str(counterIndex))
         #if(counterIndex> maxIndex):
            # counterIndex = 0
 
