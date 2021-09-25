@@ -39,11 +39,23 @@ maxIndex = 2
 global counterIndex 
 counterIndex= 0
 GPIO.setmode(GPIO.BOARD)
-
+GPIO.setwarnings(False)
 #rotary pins
 GPIO.setup(11,GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(13,GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.setup(15,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
+#rotary stuff
+GPIO.add_event_detect(11, GPIO.RISING, callback = button_callback)
+
+def button_callback(channel):
+    print("Button was pushed!")
+    global counterIndex
+    client.publish("Scene",counterIndex)
+
+
+
+
 
 RAD_TO_DEG = 57.29578
 M_PI = 3.14159265358979323846
