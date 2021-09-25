@@ -34,7 +34,7 @@ import math
 import RPi.GPIO as GPIO
 
 #initialize
-client.publish("initialize", b'hello')
+
 global maxIndex
 maxIndex = 2
 global counterIndex 
@@ -342,6 +342,7 @@ if __name__ == '__main__':
     client.loop_start()
 
     time.sleep(1)
+    client.publish("initialize", b'hello')
     while True:
 
         #Read the accelerometer,gyroscope and magnetometer values
