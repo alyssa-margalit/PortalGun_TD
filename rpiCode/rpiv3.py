@@ -66,8 +66,8 @@ def rotaryA_callback(channel):
         #setText(counterIndex)
         print("COUNTER INDEX")
         print(str(counterIndex))
-        if(counterIndex< 0):
-            counterIndex = maxIndex
+        if(counterIndex<= 0):
+            counterIndex = maxIndex+1
 def rotaryB_callback(channel):
     a = GPIO.input(13)
     b = GPIO.input(15)
@@ -83,8 +83,8 @@ def rotaryB_callback(channel):
         print("COUNTER INDEX")
         print(counterIndex)
         setText(str(counterIndex))
-        if(counterIndex>maxIndex):
-            counterIndex = 0
+        if(counterIndex>=maxIndex):
+            counterIndex = -1
         #if(counterIndex> maxIndex):
            # counterIndex = 0
 
