@@ -33,26 +33,7 @@ from grovepi import *
 import math
 import RPi.GPIO as GPIO
 
-#initialize
-global maxIndex
-maxIndex = 2
-global counterIndex 
-counterIndex= 0
-setText("welcome")
-setRGB(0,255,0)
-#pin set up
-GPIO.setmode(GPIO.BOARD)
-setRGB(255,0,0)
-setText("welcome")
 
-
-GPIO.setwarnings(False)
-#rotary pins
-GPIO.setup(11,GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(13,GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(15,GPIO.IN, pull_up_down = GPIO.PUD_UP)
-
-#end pin set up
 
 
 RAD_TO_DEG = 57.29578
