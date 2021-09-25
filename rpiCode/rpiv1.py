@@ -26,6 +26,95 @@ import os
 #mqtt stuff
 import paho.mqtt.client as mqtt
 import time
+#sensors stuff
+import grovepi
+from grove_rgb_lcd import *
+from grovepi import *
+import math
+import RPi.GPIO as GPIO
+
+#initialize
+client.publish("initialize", b'hello')
+global maxIndex = 2
+global counterIndex = 0
+
+#pin set up
+GPIO.setmode(GPIO.BOARD)
+setRGB(255,0,0)
+setText("welcome")
+
+GPIO.setup(12,GPIO.OUT)
+r = GPIO.PWM(12,50)
+r.start(0)
+
+GPIO.setup(10,GPIO.OUT)
+g = GPIO.PWM(10,50)
+g.start(0)
+
+GPIO.setup(8,GPIO.OUT)
+b = GPIO.PWM(8,50)
+b.start(0)
+
+r.ChangeDutyCycle(100)
+g.ChangeDutyCycle(0)
+b.ChangeDutyCycle(100)
+
+GPIO.setwarnings(False)
+#rotary pins
+GPIO.setup(11,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(13,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+GPIO.setup(15,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
+#end pin set up
+
+#start rotary functions
+
+global reset
+reset = 0
+def button_callback(channel):
+    print("Button was pushed!")
+    client.publish("Scene",counterIndex)
+def rotaryA_callback(channel):
+    
+    a = GPIO.input(13)
+    b = GPIO.input(15)
+    print("A callback")
+    print("A: ", a)
+    print("B: ", b)
+    print("a changed to a 1")
+    if(a and not b):
+        global counterIndex 
+        global maxIndex
+        counterIndex = counterIndex-1
+        setText("location number: ", counterIndex)
+        print("Counter: ", counterIndex)
+        if(counter< 0):
+            counter = maxIndex
+def rotaryB_callback(channel):
+    a = GPIO.input(13)
+    b = GPIO.input(15)
+    print("B callback")
+    print("A: ", a)
+    print("B: ", b)
+    print("B changed to a 1")
+    if(b and not a):
+        global counterIndex
+        global maxIndex
+        setText("location number: ", counterIndex)
+        #counter = (counter+1) % len(locations)
+        #setText(locations[counter][0])
+        print("Counter: ", counterIndex)
+        if(counterIndex> maxIndex):
+            counterIndex = 0
+        
+
+
+GPIO.add_event_detect(11, GPIO.RISING, callback = button_callback)
+GPIO.add_event_detect(13, GPIO.RISING, callback = rotaryA_callback)
+GPIO.add_event_detect(15, GPIO.RISING, callback = rotaryB_callback)
+
+#end rotary functions
+
 
 
 RAD_TO_DEG = 57.29578
@@ -197,15 +286,18 @@ if(IMU.BerryIMUversion == 99):
 IMU.initIMU()       #Initialise the accelerometer, gyroscope and compass
 
 #mqtt callbacks
-def custom_callback(client, userdata, message):
+def maxScene_callback(client, userdata, message):
+    global maxIndex
+    maxIndex = int(message.payload, "utf-8")
+    print("maxIndex", maxIndex)
     print("custom_callback: " + message.topic + " " + "\"" + 
         str(message.payload, "utf-8") + "\"")
     print("custom_callback: message.payload is of type " + 
           str(type(message.payload)))
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
-    client.subscribe("alyssasrpi/customCallback")
-    client.message_callback_add("alyssasrpi/customCallback", custom_callback)
+    client.subscribe("numScenes")
+    client.message_callback_add("numScenes", maxScene_callback)
 def on_message(client, userdata, msg):
     print("on_message: " + msg.topic + " " + str(msg.payload, "utf-8"))
     print("on_message: msg.payload is of type " + str(type(msg.payload)))
@@ -438,19 +530,19 @@ if __name__ == '__main__':
         ##################### END Tilt Compensation ########################
 
 
-        if 1:                       #Change to '0' to stop showing the angles from the accelerometer
+        if 0:                       #Change to '0' to stop showing the angles from the accelerometer
             outputString += "#  ACCX Angle %5.2f ACCY Angle %5.2f  #  " % (AccXangle, AccYangle)
 
-        if 1:                       #Change to '0' to stop  showing the angles from the gyro
+        if 0:                       #Change to '0' to stop  showing the angles from the gyro
             outputString +="\t# GRYX Angle %5.2f  GYRY Angle %5.2f  GYRZ Angle %5.2f # " % (gyroXangle,gyroYangle,gyroZangle)
 
-        if 1:                       #Change to '0' to stop  showing the angles from the complementary filter
+        if 0:                       #Change to '0' to stop  showing the angles from the complementary filter
             outputString +="\t#  CFangleX Angle %5.2f   CFangleY Angle %5.2f  #" % (CFangleX,CFangleY)
 
-        if 1:                       #Change to '0' to stop  showing the heading
+        if 0:                       #Change to '0' to stop  showing the heading
             outputString +="\t# HEADING %5.2f  tiltCompensatedHeading %5.2f #" % (heading,tiltCompensatedHeading)
 
-        if 1:                       #Change to '0' to stop  showing the angles from the Kalman filter
+        if 0:                       #Change to '0' to stop  showing the angles from the Kalman filter
             outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
 
         print(outputString)
