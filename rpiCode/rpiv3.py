@@ -51,7 +51,8 @@ def button_callback(channel):
     global counterIndex
     client.publish("Scene",counterIndex)
 def rotaryA_callback(channel):
-    
+    global counterIndex 
+    global maxIndex
     a = GPIO.input(13)
     b = GPIO.input(15)
     print("A callback")
@@ -61,8 +62,7 @@ def rotaryA_callback(channel):
     if(counterIndex< 0):
             counterIndex = maxIndex
     if(a and not b):
-        global counterIndex 
-        global maxIndex
+        
         counterIndex = counterIndex-1
         setText(str(counterIndex))
         #setText(counterIndex)
@@ -70,6 +70,8 @@ def rotaryA_callback(channel):
         print(str(counterIndex))
         
 def rotaryB_callback(channel):
+    global counterIndex 
+    global maxIndex
     a = GPIO.input(13)
     b = GPIO.input(15)
     print("B callback")
@@ -79,8 +81,6 @@ def rotaryB_callback(channel):
     if(counterIndex>maxIndex):
             counterIndex = 0
     if(b and not a):
-        global counterIndex
-        global maxIndex
         #setText(counterIndex)
         counterIndex = counterIndex+1
         print("COUNTER INDEX")
