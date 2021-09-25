@@ -459,4 +459,4 @@ if __name__ == '__main__':
         client.publish("zAngle", gyroZangle)
 
         #slow program down a bit, makes the output more readable
-        time.sleep(0.5)
+        time.sleep(0.01)
