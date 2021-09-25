@@ -35,8 +35,10 @@ import RPi.GPIO as GPIO
 
 #initialize
 client.publish("initialize", b'hello')
-global maxIndex = 2
-global counterIndex = 0
+global maxIndex
+maxIndex = 2
+global counterIndex 
+counterIndex= 0
 
 #pin set up
 GPIO.setmode(GPIO.BOARD)
