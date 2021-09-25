@@ -59,8 +59,8 @@ def rotaryA_callback(channel):
     print("A: ", a)
     print("B: ", b)
     print("a changed to a 1")
-    if(counterIndex< 0):
-            counterIndex = maxIndex
+    if(counterIndex<= 0):
+            counterIndex = maxIndex+1
     if(a and not b):
         
         counterIndex = counterIndex-1
@@ -78,8 +78,8 @@ def rotaryB_callback(channel):
     print("A: ", a)
     print("B: ", b)
     print("B changed to a 1")
-    if(counterIndex>maxIndex):
-            counterIndex = 0
+    if(counterIndex>=maxIndex):
+            counterIndex = -1
     if(b and not a):
         #setText(counterIndex)
         counterIndex = counterIndex+1
