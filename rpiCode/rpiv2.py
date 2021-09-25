@@ -35,44 +35,16 @@ import RPi.GPIO as GPIO
 
 #initialize
 
-global maxIndex
-maxIndex = 2
-global counterIndex 
-counterIndex= 0
 
 #pin set up
-GPIO.setmode(GPIO.BOARD)
-setRGB(255,0,0)
-setText("welcome")
 
-GPIO.setup(12,GPIO.OUT)
-r = GPIO.PWM(12,50)
-r.start(0)
-
-GPIO.setup(10,GPIO.OUT)
-g = GPIO.PWM(10,50)
-g.start(0)
-
-GPIO.setup(8,GPIO.OUT)
-b = GPIO.PWM(8,50)
-b.start(0)
-
-r.ChangeDutyCycle(100)
-g.ChangeDutyCycle(0)
-b.ChangeDutyCycle(100)
-
-GPIO.setwarnings(False)
 #rotary pins
-GPIO.setup(11,GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(13,GPIO.IN, pull_up_down = GPIO.PUD_UP)
-GPIO.setup(15,GPIO.IN, pull_up_down = GPIO.PUD_UP)
+
 
 #end pin set up
 
 #start rotary functions
 
-global reset
-reset = 0
 '''
 def button_callback(channel):
     print("Button was pushed!")
@@ -343,7 +315,7 @@ if __name__ == '__main__':
     client.loop_start()
 
     time.sleep(1)
-    client.publish("initialize", b'hello')
+    #client.publish("initialize", b'hello')
     while True:
 
         #Read the accelerometer,gyroscope and magnetometer values
