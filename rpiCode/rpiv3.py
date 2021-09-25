@@ -50,9 +50,42 @@ def button_callback(channel):
     print("Button was pushed!")
     global counterIndex
     client.publish("Scene",counterIndex)
+def rotaryA_callback(channel):
+    
+    a = GPIO.input(13)
+    b = GPIO.input(15)
+    print("A callback")
+    print("A: ", a)
+    print("B: ", b)
+    print("a changed to a 1")
+    if(a and not b):
+        global counterIndex 
+        global maxIndex
+        counterIndex = counterIndex-1
+        setText("location number: ", counterIndex)
+        print("Counter: ", counterIndex)
+        if(counter< 0):
+            counter = maxIndex
+def rotaryB_callback(channel):
+    a = GPIO.input(13)
+    b = GPIO.input(15)
+    print("B callback")
+    print("A: ", a)
+    print("B: ", b)
+    print("B changed to a 1")
+    if(b and not a):
+        global counterIndex
+        global maxIndex
+        setText("location number: ", counterIndex)
+        #counter = (counter+1) % len(locations)
+        #setText(locations[counter][0])
+        print("Counter: ", counterIndex)
+        if(counterIndex> maxIndex):
+            counterIndex = 0
 
 GPIO.add_event_detect(11, GPIO.RISING, callback = button_callback)
-
+GPIO.add_event_detect(13, GPIO.RISING, callback = rotaryA_callback)
+GPIO.add_event_detect(15, GPIO.RISING, callback = rotaryB_callback)
 
 
 RAD_TO_DEG = 57.29578
