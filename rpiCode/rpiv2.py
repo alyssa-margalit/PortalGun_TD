@@ -26,69 +26,6 @@ import os
 #mqtt stuff
 import paho.mqtt.client as mqtt
 import time
-#sensors stuff
-import grovepi
-from grove_rgb_lcd import *
-from grovepi import *
-import math
-import RPi.GPIO as GPIO
-
-#initialize
-
-
-#pin set up
-
-#rotary pins
-
-
-#end pin set up
-
-#start rotary functions
-
-'''
-def button_callback(channel):
-    print("Button was pushed!")
-    client.publish("Scene",counterIndex)
-def rotaryA_callback(channel):
-    
-    a = GPIO.input(13)
-    b = GPIO.input(15)
-    print("A callback")
-    print("A: ", a)
-    print("B: ", b)
-    print("a changed to a 1")
-    if(a and not b):
-        global counterIndex 
-        global maxIndex
-        counterIndex = counterIndex-1
-        setText("location number: ", counterIndex)
-        print("Counter: ", counterIndex)
-        if(counter< 0):
-            counter = maxIndex
-def rotaryB_callback(channel):
-    a = GPIO.input(13)
-    b = GPIO.input(15)
-    print("B callback")
-    print("A: ", a)
-    print("B: ", b)
-    print("B changed to a 1")
-    if(b and not a):
-        global counterIndex
-        global maxIndex
-        setText("location number: ", counterIndex)
-        #counter = (counter+1) % len(locations)
-        #setText(locations[counter][0])
-        print("Counter: ", counterIndex)
-        if(counterIndex> maxIndex):
-            counterIndex = 0
-        
-
-
-GPIO.add_event_detect(11, GPIO.RISING, callback = button_callback)
-GPIO.add_event_detect(13, GPIO.RISING, callback = rotaryA_callback)
-GPIO.add_event_detect(15, GPIO.RISING, callback = rotaryB_callback)
-'''
-#end rotary functions
 
 
 
@@ -260,15 +197,7 @@ if(IMU.BerryIMUversion == 99):
     sys.exit()
 IMU.initIMU()       #Initialise the accelerometer, gyroscope and compass
 
-#mqtt callbacks
-def maxScene_callback(client, userdata, message):
-    global maxIndex
-    maxIndex = int(message.payload, "utf-8")
-    print("maxIndex", maxIndex)
-    print("custom_callback: " + message.topic + " " + "\"" + 
-        str(message.payload, "utf-8") + "\"")
-    print("custom_callback: message.payload is of type " + 
-          str(type(message.payload)))
+
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
     client.subscribe("numScenes")
@@ -521,7 +450,7 @@ if __name__ == '__main__':
         if 0:                       #Change to '0' to stop  showing the angles from the Kalman filter
             outputString +="# kalmanX %5.2f   kalmanY %5.2f #" % (kalmanX,kalmanY)
 
-        print(outputString)
+        #print(outputString)
         client.publish("xAngle", gyroXangle)
         client.publish("yAngle", gyroYangle)
         client.publish("zAngle", gyroZangle)
