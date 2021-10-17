@@ -293,7 +293,7 @@ if __name__ == '__main__':
     server in the event no messages have been published from or sent to this 
     client. If the connection request is successful, the callback attached to
     `client.on_connect` will be called."""
-    client.connect(host="eclipse.usc.edu", port=11000, keepalive=60)
+    client.connect(host="broker.hivemq.com", port=1883, keepalive=60)
 
     """In our prior labs, we did not use multiple threads per se. Instead, we
     wrote clients and servers all in separate *processes*. However, every 
